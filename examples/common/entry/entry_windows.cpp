@@ -462,10 +462,10 @@ namespace entry
 			wnd.style = CS_HREDRAW | CS_VREDRAW;
 			wnd.lpfnWndProc = wndProc;
 			wnd.hInstance = instance;
-			wnd.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+			wnd.hIcon = LoadIcon(instance, MAKEINTRESOURCE(1));
 			wnd.hCursor = LoadCursor(NULL, IDC_ARROW);
 			wnd.lpszClassName = "bgfx";
-			wnd.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+			wnd.hIconSm = LoadIcon(instance, MAKEINTRESOURCE(1));
 			RegisterClassExA(&wnd);
 
 			m_windowAlloc.alloc();
@@ -1109,6 +1109,7 @@ namespace entry
 
 	void setWindowTitle(WindowHandle _handle, const char* _title)
 	{
+		return;
 		Msg* msg = new Msg;
 		msg->m_title = _title;
 		PostMessage(s_ctx.m_hwnd[0], WM_USER_WINDOW_SET_TITLE, _handle.idx, (LPARAM)msg);

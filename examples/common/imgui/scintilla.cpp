@@ -221,7 +221,7 @@ public:
 	{
 		float position = 0;
 
-		ImFont* imFont = ImGui::GetWindowFont();
+		ImFont* imFont = ImGui::GetFont();
 
 		while (_len--)
 		{
@@ -749,7 +749,7 @@ public:
 
 		int32_t lineCount = int32_t(command(SCI_GETLINECOUNT) );
 		int32_t firstVisibleLine = int32_t(command(SCI_GETFIRSTVISIBLELINE) );
-		float fontHeight = ImGui::GetWindowFontSize();
+		float fontHeight = ImGui::GetFontSize();
 
 		if (ImGui::IsMouseClicked(0) )
 		{
