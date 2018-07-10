@@ -450,6 +450,28 @@ namespace entry
 
 		int32_t run(int _argc, const char* const* _argv)
 		{
+			char const *appname = _argv[0];
+			char mainWinTitle[MAX_PATH];
+			int len = strlen(appname);
+			while(len>0) // start from back
+			{
+				if(appname[len-1] == '/' || appname[len-1] == '\\')
+				{
+					// stop when we hit a path separator,
+					// eliminate file extension (.exe)
+					for(int j=0;j<MAX_PATH;j++)
+					{
+						if(!appname[len+j] || appname[len+j] == '.')
+						{
+							mainWinTitle[j] = '\0';
+							break;
+						}
+						mainWinTitle[j] = appname[len+j];
+					}
+					break;
+				}
+				len--;
+			}
 			SetDllDirectoryA(".");
 
 			s_xinput.init();
@@ -472,7 +494,7 @@ namespace entry
 			m_hwnd[0] = CreateWindowExA(
 				  WS_EX_ACCEPTFILES
 				, "bgfx"
-				, "BGFX"
+				, mainWinTitle
 				, WS_OVERLAPPEDWINDOW|WS_VISIBLE
 				, 0
 				, 0
