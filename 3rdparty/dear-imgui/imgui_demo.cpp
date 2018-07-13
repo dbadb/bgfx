@@ -802,7 +802,8 @@ void ImGui::ShowDemoWindow(bool* p_open)
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0,0));
             ImGui::Checkbox("Read-only", &read_only);
             ImGui::PopStyleVar();
-            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-1.0f, ImGui::GetTextLineHeight() * 16), ImGuiInputTextFlags_AllowTabInput | (read_only ? ImGuiInputTextFlags_ReadOnly : 0));
+            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-1.0f, ImGui::GetTextLineHeight() * 16), 
+                ImGuiInputTextFlags_AllowTabInput | (read_only ? ImGuiInputTextFlags_ReadOnly : 0));
             ImGui::TreePop();
         }
 
@@ -3379,8 +3380,14 @@ static void ShowExampleAppLongText(bool* p_open)
             ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0,0));
             ImGuiListClipper clipper(lines);
             while (clipper.Step())
+            {
                 for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++)
-                    ImGui::Text("%i The quick brown fox jumps over the lazy dog", i);
+                {
+                    ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor::HSV(i%7/7.0f, 0.6f, 0.6f));
+                    ImGui::Text("%4i The quick brown fox jumps over the lazy dog", i);
+            ImGui::PopStyleColor();
+                }
+            }
             ImGui::PopStyleVar();
             break;
         }
@@ -3388,7 +3395,11 @@ static void ShowExampleAppLongText(bool* p_open)
         // Multiple calls to Text(), not clipped (slow)
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0,0));
         for (int i = 0; i < lines; i++)
-            ImGui::Text("%i The quick brown fox jumps over the lazy dog", i);
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor::HSV(i%7/7.0f, 0.6f, 0.6f));
+            ImGui::Text("%4i The quick brown fox jumps over the lazy dog", i);
+            ImGui::PopStyleColor();
+        }
         ImGui::PopStyleVar();
         break;
     }

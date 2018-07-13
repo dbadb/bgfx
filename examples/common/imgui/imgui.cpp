@@ -406,11 +406,16 @@ struct OcornutImguiContext
 		{
 			io.KeysDown[ii] = inputGetKeyState(entry::Key::Enum(ii) );
 		}
+		uint8_t const *inchar;
+		while((inchar = inputGetChar()) != NULL)
+		{
+			io.AddInputCharacter(*inchar);
+		}
 #endif // USE_ENTRY
 
 		ImGui::NewFrame();
-
 		ImGuizmo::BeginFrame();
+
 	}
 
 	void endFrame()

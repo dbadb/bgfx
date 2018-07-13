@@ -649,100 +649,114 @@ public:
 
 		Resize(0, 0, (int)size.x, (int)size.y);
 
-		uint8_t modifiers = inputGetModifiersState();
-		const bool shift = 0 != (modifiers & (entry::Modifier::LeftShift | entry::Modifier::RightShift) );
-		const bool ctrl  = 0 != (modifiers & (entry::Modifier::LeftCtrl  | entry::Modifier::RightCtrl ) );
-		const bool alt   = 0 != (modifiers & (entry::Modifier::LeftAlt   | entry::Modifier::RightAlt  ) );
+		if(ImGui::IsWindowFocused())
+		{
+			uint8_t modifiers = inputGetModifiersState();
+			const bool shift = 0 != (modifiers & (entry::Modifier::LeftShift | entry::Modifier::RightShift) );
+			const bool ctrl  = 0 != (modifiers & (entry::Modifier::LeftCtrl  | entry::Modifier::RightCtrl ) );
+			const bool alt   = 0 != (modifiers & (entry::Modifier::LeftAlt   | entry::Modifier::RightAlt  ) );
 
-		if (ImGui::IsKeyPressed(entry::Key::Tab) )
-		{
-			Editor::KeyDown(SCK_TAB, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Left) )
-		{
-			Editor::KeyDown(SCK_LEFT, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Right) )
-		{
-			Editor::KeyDown(SCK_RIGHT, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Up) )
-		{
-			Editor::KeyDown(SCK_UP, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Down) )
-		{
-			Editor::KeyDown(SCK_DOWN, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::PageUp) )
-		{
-			Editor::KeyDown(SCK_PRIOR, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::PageDown) )
-		{
-			Editor::KeyDown(SCK_NEXT, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Home) )
-		{
-			Editor::KeyDown(SCK_HOME, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::End) )
-		{
-			Editor::KeyDown(SCK_END, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Delete) )
-		{
-			Editor::KeyDown(SCK_DELETE, shift, ctrl, alt);
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Backspace) )
-		{
-			Editor::KeyDown(SCK_BACK, shift, ctrl, alt); inputGetChar();
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Return) )
-		{
-			Editor::KeyDown(SCK_RETURN, shift, ctrl, alt); inputGetChar();
-		}
-		else if (ImGui::IsKeyPressed(entry::Key::Esc) )
-		{
-			Editor::KeyDown(SCK_ESCAPE, shift, ctrl, alt);
-		}
-		else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyA) )
-		{
-			Editor::KeyDown('A', shift, ctrl, alt); inputGetChar();
-		}
-		else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyC) )
-		{
-			Editor::KeyDown('C', shift, ctrl, alt); inputGetChar();
-		}
-		else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyV) )
-		{
-			Editor::KeyDown('V', shift, ctrl, alt); inputGetChar();
-		}
-		else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyX) )
-		{
-			Editor::KeyDown('X', shift, ctrl, alt); inputGetChar();
-		}
-		else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyY) )
-		{
-			Editor::KeyDown('Y', shift, ctrl, alt); inputGetChar();
-		}
-		else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyZ) )
-		{
-			Editor::KeyDown('Z', shift, ctrl, alt);	inputGetChar();
-		}
-		else if (ctrl || alt)
-		{
-			// ignore...
-		}
-		else
-		{
-			for (const uint8_t* ch = inputGetChar(); NULL != ch; ch = inputGetChar() )
+#if 0
+			if (ImGui::IsKeyPressed(entry::Key::Tab) )
 			{
-				switch (*ch)
+				Editor::KeyDown(SCK_TAB, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Left) )
+			{
+				Editor::KeyDown(SCK_LEFT, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Right) )
+			{
+				Editor::KeyDown(SCK_RIGHT, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Up) )
+			{
+				Editor::KeyDown(SCK_UP, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Down) )
+			{
+				Editor::KeyDown(SCK_DOWN, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::PageUp) )
+			{
+				Editor::KeyDown(SCK_PRIOR, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::PageDown) )
+			{
+				Editor::KeyDown(SCK_NEXT, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Home) )
+			{
+				Editor::KeyDown(SCK_HOME, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::End) )
+			{
+				Editor::KeyDown(SCK_END, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Delete) )
+			{
+				Editor::KeyDown(SCK_DELETE, shift, ctrl, alt);
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Backspace) )
+			{
+				Editor::KeyDown(SCK_BACK, shift, ctrl, alt); // inputGetChar();
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Return) )
+			{
+				Editor::KeyDown(SCK_RETURN, shift, ctrl, alt);// inputGetChar();
+			}
+			else if (ImGui::IsKeyPressed(entry::Key::Esc) )
+			{
+				Editor::KeyDown(SCK_ESCAPE, shift, ctrl, alt);
+			}
+			else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyA) )
+			{
+				Editor::KeyDown('A', shift, ctrl, alt); // inputGetChar();
+			}
+			else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyC) )
+			{
+				Editor::KeyDown('C', shift, ctrl, alt); // inputGetChar();
+			}
+			else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyV) )
+			{
+				Editor::KeyDown('V', shift, ctrl, alt); // inputGetChar();
+			}
+			else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyX) )
+			{
+				Editor::KeyDown('X', shift, ctrl, alt); // inputGetChar();
+			}
+			else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyY) )
+			{
+				Editor::KeyDown('Y', shift, ctrl, alt); // inputGetChar();
+			}
+			else if (ctrl && ImGui::IsKeyPressed(entry::Key::KeyZ) )
+			{
+				Editor::KeyDown('Z', shift, ctrl, alt);	// inputGetChar();
+			}
+			else
+#endif
+			{
+				ImGuiIO& io = ImGui::GetIO();
+				for(size_t i=0; 
+					i<sizeof(io.InputCharacters)/sizeof(io.InputCharacters[0]);
+					i++)
 				{
-				case '\b': Editor::KeyDown(SCK_BACK,   shift, ctrl, alt); break;
-				case '\n': Editor::KeyDown(SCK_RETURN, shift, ctrl, alt); break;
-				default:   Editor::AddCharUTF( (const char*)ch, 1);       break;
+					char ch = (char) io.InputCharacters[i];
+					if(ch == 0)
+						break;
+					switch (ch)
+					{
+					case '\b': 
+						Editor::KeyDown(SCK_BACK, shift, ctrl, alt); 
+						break;
+					case '\n': 
+						Editor::KeyDown(SCK_RETURN, shift, ctrl, alt); 
+						break;
+					default:   
+						printf("newchar: %c", ch);
+						Editor::AddCharUTF(&ch, 1);
+						break;
+					}
 				}
 			}
 		}
