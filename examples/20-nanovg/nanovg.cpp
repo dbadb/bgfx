@@ -290,14 +290,18 @@ void drawCheckBox(struct NVGcontext* vg, const char* text, float x, float y, flo
 	nvgText(vg, x+9+2, y+h*0.5f, cpToUTF8(ICON_CHECK,icon), NULL);
 }
 
-void drawButton(struct NVGcontext* vg, int preicon, const char* text, float x, float y, float w, float h, struct NVGcolor col)
+void drawButton(struct NVGcontext* vg, int preicon, const char* text, 
+			float x, float y, float w, float h, struct NVGcolor col,
+			float mx, float my)
 {
 	struct NVGpaint bg;
 	char icon[8];
 	float cornerRadius = 4.0f;
 	float tw = 0, iw = 0;
 
-	bg = nvgLinearGradient(vg, x,y,x,y+h, nvgRGBA(255,255,255,isBlack(col)?16:32), nvgRGBA(0,0,0,isBlack(col)?16:32) );
+	bg = nvgLinearGradient(vg, x,y,x,y+h, 
+						nvgRGBA(255,255,255,isBlack(col)?16:32), 
+						nvgRGBA(0,0,0,isBlack(col)?16:32) );
 	nvgBeginPath(vg);
 	nvgRoundedRect(vg, x+1,y+1, w-2,h-2, cornerRadius-1);
 	if (!isBlack(col) ) {
@@ -306,6 +310,11 @@ void drawButton(struct NVGcontext* vg, int preicon, const char* text, float x, f
 	}
 	nvgFillPaint(vg, bg);
 	nvgFill(vg);
+	if(nvgOnFill(vg, mx, my))
+	{
+		nvgFillColor(vg, nvgRGBA(255,100,100,160) );
+		nvgFill(vg);
+	}
 
 	nvgBeginPath(vg);
 	nvgRoundedRect(vg, x+0.5f,y+0.5f, w-1,h-1, cornerRadius-0.5f);
@@ -1211,7 +1220,8 @@ void renderDemo(struct NVGcontext* vg, float mx, float my, float width, float he
 	drawEditBox(vg, "Password", x,y, 280,28);
 	y += 38;
 	drawCheckBox(vg, "Remember me", x,y, 140,28);
-	drawButton(vg, ICON_LOGIN, "Sign in", x+138, y, 140, 28, nvgRGBA(0,96,128,255) );
+	drawButton(vg, ICON_LOGIN, "Sign in", x+138, y, 140, 28, nvgRGBA(0,96,128,255),
+			mx, my);
 	y += 45;
 
 	// Slider
@@ -1221,8 +1231,10 @@ void renderDemo(struct NVGcontext* vg, float mx, float my, float width, float he
 	drawSlider(vg, 0.4f, x,y, 170,28);
 	y += 55;
 
-	drawButton(vg, ICON_TRASH, "Delete", x, y, 160, 28, nvgRGBA(128,16,8,255) );
-	drawButton(vg, 0, "Cancel", x+170, y, 110, 28, nvgRGBA(0,0,0,0) );
+	drawButton(vg, ICON_TRASH, "Delete", x, y, 160, 28, nvgRGBA(128,16,8,255),
+		mx, my );
+	drawButton(vg, 0, "Cancel", x+170, y, 110, 28, nvgRGBA(0,0,0,0),
+		mx, my );
 
 	// Thumbnails box
 	drawThumbnails(vg, popx, popy-30, 160, 300, data->images, 12, t);
