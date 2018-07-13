@@ -26,6 +26,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <sstream>
 
 #include <bx/string.h>
 #include <bx/timer.h>
@@ -1180,6 +1181,11 @@ void drawWidths(struct NVGcontext* vg, float x, float y, float width)
 void renderDemo(struct NVGcontext* vg, float mx, float my, float width, float height, float t, int blowup, struct DemoData* data)
 {
 	float x,y,popx,popy;
+	std::stringstream ss;  
+	ss << "time " << t;
+	drawLabel(vg, ss.str().c_str(), 20, 20, 270,20);
+	nvgTranslate(vg, fmod(t*10,width), fmod(t*10, height));
+	nvgScale(vg, 2, 2);
 
 	drawEyes(vg, width-800, height-240, 150, 100, mx, my, t);
 	drawParagraph(vg, width - 550, 35, 150, 100, mx, my);
