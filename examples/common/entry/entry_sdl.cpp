@@ -617,7 +617,8 @@ namespace entry
 								{
 									modifiers = translateKeyModifierPress(kev.keysym.scancode);
 								}
-
+#if 0
+	// dbadb: double-posting special keys as ascii codes for what reason?
 								if (Key::Esc == key)
 								{
 									uint8_t pressedChar[4];
@@ -636,7 +637,7 @@ namespace entry
 									pressedChar[0] = 0x08;
 									m_eventQueue.postCharEvent(handle, 1, pressedChar);
 								}
-
+#endif
 								m_eventQueue.postKeyEvent(handle, key, modifiers, kev.state == SDL_PRESSED);
 							}
 						}
