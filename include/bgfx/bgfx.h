@@ -556,6 +556,13 @@ namespace bgfx
 
 		/// Called when a video capture begins.
 		///
+		/// @param[in] _width Image width.
+		/// @param[in] _height Image height.
+		/// @param[in] _pitch Number of bytes to skip between the start of
+		///   each horizontal line of the image.
+		/// @param[in] _format Texture format. See: `TextureFormat::Enum`.
+		/// @param[in] _yflip If true, image origin is bottom left.
+		///
 		/// @attention C99 equivalent is `bgfx_callback_vtbl.capture_begin`.
 		///
 		virtual void captureBegin(
@@ -567,6 +574,9 @@ namespace bgfx
 			) = 0;
 
 		/// Called when a video capture ends.
+		///
+		/// @param[in] _data Image data.
+		/// @param[in] _size Image size.
 		///
 		/// @attention C99 equivalent is `bgfx_callback_vtbl.capture_end`.
 		///
@@ -2520,7 +2530,7 @@ namespace bgfx
 	///
 	TextureHandle createTexture(
 		  const Memory* _mem
-		, uint32_t _flags = BGFX_TEXTURE_NONE
+		, uint32_t _flags = BGFX_SAMPLER_NONE
 		, uint8_t _skip = 0
 		, TextureInfo* _info = NULL
 		);
@@ -2552,7 +2562,7 @@ namespace bgfx
 		, bool     _hasMips
 		, uint16_t _numLayers
 		, TextureFormat::Enum _format
-		, uint32_t _flags = BGFX_TEXTURE_NONE
+		, uint32_t _flags = BGFX_SAMPLER_NONE
 		, const Memory* _mem = NULL
 		);
 
@@ -2579,7 +2589,7 @@ namespace bgfx
 		, bool _hasMips
 		, uint16_t _numLayers
 		, TextureFormat::Enum _format
-		, uint32_t _flags = BGFX_TEXTURE_NONE
+		, uint32_t _flags = BGFX_SAMPLER_NONE
 		);
 
 	/// Create 3D texture.
@@ -2607,7 +2617,7 @@ namespace bgfx
 		, uint16_t _depth
 		, bool _hasMips
 		, TextureFormat::Enum _format
-		, uint32_t _flags = BGFX_TEXTURE_NONE
+		, uint32_t _flags = BGFX_SAMPLER_NONE
 		, const Memory* _mem = NULL
 		);
 
@@ -2636,7 +2646,7 @@ namespace bgfx
 		, bool _hasMips
 		, uint16_t _numLayers
 		, TextureFormat::Enum _format
-		, uint32_t _flags = BGFX_TEXTURE_NONE
+		, uint32_t _flags = BGFX_SAMPLER_NONE
 		, const Memory* _mem = NULL
 		);
 
@@ -2818,7 +2828,7 @@ namespace bgfx
 		  uint16_t _width
 		, uint16_t _height
 		, TextureFormat::Enum _format
-		, uint32_t _textureFlags = BGFX_TEXTURE_U_CLAMP|BGFX_TEXTURE_V_CLAMP
+		, uint32_t _textureFlags = BGFX_SAMPLER_U_CLAMP|BGFX_SAMPLER_V_CLAMP
 		);
 
 	/// Create frame buffer with size based on backbuffer ratio. Frame buffer will maintain ratio
@@ -2841,7 +2851,7 @@ namespace bgfx
 	FrameBufferHandle createFrameBuffer(
 		  BackbufferRatio::Enum _ratio
 		, TextureFormat::Enum _format
-		, uint32_t _textureFlags = BGFX_TEXTURE_U_CLAMP|BGFX_TEXTURE_V_CLAMP
+		, uint32_t _textureFlags = BGFX_SAMPLER_U_CLAMP|BGFX_SAMPLER_V_CLAMP
 		);
 
 	/// Create MRT frame buffer from texture handles (simple).
