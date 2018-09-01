@@ -368,6 +368,8 @@ namespace entry
 			initTranslateKey(SDL_SCANCODE_KP_PERIOD,    Key::Period);
 			initTranslateKey(SDL_SCANCODE_PERIOD,       Key::Period);
 			initTranslateKey(SDL_SCANCODE_SLASH,        Key::Slash);
+			initTranslateKey(SDL_SCANCODE_LEFTBRACKET,  Key::LeftBracket);
+			initTranslateKey(SDL_SCANCODE_RIGHTBRACKET, Key::RightBracket);
 			initTranslateKey(SDL_SCANCODE_F1,           Key::F1);
 			initTranslateKey(SDL_SCANCODE_F2,           Key::F2);
 			initTranslateKey(SDL_SCANCODE_F3,           Key::F3);
