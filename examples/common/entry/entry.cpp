@@ -344,8 +344,8 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 	{
 		{ entry::Key::KeyQ,         entry::Modifier::LeftCtrl,  1, NULL, "exit"                              },
 		{ entry::Key::KeyQ,         entry::Modifier::RightCtrl, 1, NULL, "exit"                              },
-		{ entry::Key::KeyF,         entry::Modifier::LeftCtrl,  1, NULL, "graphics fullscreen"               },
-		{ entry::Key::KeyF,         entry::Modifier::RightCtrl, 1, NULL, "graphics fullscreen"               },
+		{ entry::Key::KeyF,         entry::Modifier::LeftAlt,  1, NULL, "graphics fullscreen"               },
+		{ entry::Key::KeyF,         entry::Modifier::RightAlt, 1, NULL, "graphics fullscreen"               },
 		{ entry::Key::Return,       entry::Modifier::RightAlt,  1, NULL, "graphics fullscreen"               },
 		{ entry::Key::F1,           entry::Modifier::None,      1, NULL, "graphics stats"                    },
 		{ entry::Key::F1,           entry::Modifier::LeftCtrl,  1, NULL, "graphics ifh"                      },
